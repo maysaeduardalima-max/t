@@ -1,0 +1,46 @@
+import tiktoken
+
+def analisar_consumo_tokens(prompt_curto, prompt_detalhado, modelo="gpt-4o"):
+    # Carrega o codificador do modelo escolhido
+    encoding = tiktoken.encoding_for_model(modelo)
+    
+    # Simulação das respostas geradas pelo modelo para cada prompt
+    resposta_curta = "Python é uma linguagem de programação de alto nível, interpretada e fácil de aprender."
+    resposta_detalhada = (
+        "Python é uma linguagem de programação de alto nível, interpretada, de tipagem dinâmica e multiparadigma. "
+        "Suas principais características incluem sintaxe limpa e legível, amplo ecossistema de bibliotecas "
+        "(como Pandas, NumPy e TensorFlow) e suporte para desenvolvimento web, automação, inteligência artificial "
+        "e análise de dados. Foi criada por Guido van Rossum e lançada em 1991."
+    )
+
+    # 1 e 2. Cálculo dos tokens para o Teste 1 (Prompt Curto)
+    tokens_in_1 = len(encoding.encode(prompt_curto))
+    tokens_out_1 = len(encoding.encode(resposta_curta))
+    total_1 = tokens_in_1 + tokens_out_1
+
+    # Cálculo dos tokens para o Teste 2 (Prompt Detalhado)
+    tokens_in_2 = len(encoding.encode(prompt_detalhado))
+    tokens_out_2 = len(encoding.encode(resposta_detalhada))
+    total_2 = tokens_in_2 + tokens_out_2
+
+    # 3. Exibição dos resultados
+    print("=" * 55)
+    print("TESTE 1: PROMPT CURTO")
+    print(f"Prompt: '{prompt_curto}'")
+    print(f"- Tokens de Entrada (Input) : {tokens_in_1}")
+    print(f"- Tokens de Saída (Output)  : {tokens_out_1}")
+    print(f"- Total de Tokens           : {total_1}")
+    
+    print("\n" + "=" * 55)
+    print("TESTE 2: PROMPT DETALHADO")
+    print(f"Prompt: '{prompt_detalhado}'")
+    print(f"- Tokens de Entrada (Input) : {tokens_in_2}")
+    print(f"- Tokens de Saída (Output)  : {tokens_out_2}")
+    print(f"- Total de Tokens           : {total_2}")
+    print("=" * 55)
+
+# Prompts de teste
+prompt_1 = "O que é Python?"
+prompt_2 = "Explique o que é a linguagem Python, detalhando suas principais características, áreas de aplicação e quem a criou."
+
+analisar_consumo_tokens(prompt_1, prompt_2)
