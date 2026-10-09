@@ -1,0 +1,44 @@
+import numpy as np
+import matplotlib.pyplot as plt
+
+# Conjunto de dados
+dados = [5, 6, 6, 7, 7, 7, 8, 8, 9, 10]
+
+# 1. Cálculo da média e desvio padrão amostral (ddof=1 especifica a amostra)
+media = np.mean(dados)
+desvio_padrao = np.std(dados, ddof=1)
+
+# Cálculo dos limites do intervalo
+intervalo_min = media - desvio_padrao
+intervalo_max = media + desvio_padrao
+
+# 3. Exibição dos valores calculados
+print(f"Média: {media:.2f}")
+print(f"Desvio Padrão Amostral: {desvio_padrao:.2f}")
+print(f"Intervalo Mínimo (Média - 1 DP): {intervalo_min:.2f}")
+print(f"Intervalo Máximo (Média + 1 DP): {intervalo_max:.2f}")
+
+# 2. Plotagem do Histogram e destaque da faixa
+plt.figure(figsize=(8, 5))
+
+# Histograma dos dados
+plt.hist(dados, bins=range(4, 12), edgecolor='black', alpha=0.7, color='skyblue', align='left')
+
+# Faixa destacando o intervalo [Média - DP, Média + DP]
+plt.axvspan(intervalo_min, intervalo_max, color='yellow', alpha=0.3, label='Média ± 1 Desvio Padrão')
+
+# Linhas verticais indicando a Média e os limites do intervalo
+plt.axvline(media, color='red', linestyle='--', linewidth=2, label=f'Média ({media:.2f})')
+plt.axvline(intervalo_min, color='darkorange', linestyle=':', linewidth=1.5)
+plt.axvline(intervalo_max, color='darkorange', linestyle=':', linewidth=1.5)
+
+# Configurações do gráfico
+plt.title('Distribuição dos Dados com Destaque para a Variabilidade')
+plt.xlabel('Valores')
+plt.ylabel('Frequência')
+plt.xticks(range(4, 11))
+plt.legend()
+plt.grid(axis='y', linestyle='--', alpha=0.5)
+
+# Exibe o gráfico
+plt.show()
